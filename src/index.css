@@ -42,7 +42,7 @@ header p {
 }
 
 /* Main Container */
-main {
+main, footer {
   max-width: 650px;
   margin: 1.5rem auto 3rem;
   padding: 0 1.25rem;
@@ -149,6 +149,7 @@ main li {
   align-items: center;
   gap: 0.75rem;
   transition: transform 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
 }
 
 main li:hover {
@@ -176,4 +177,86 @@ main div > p {
   .detailsPicker {
     grid-template-columns: 1fr;
   }
+}
+
+.overlay {
+    background-color: black;
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    opacity: 0.8;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 3em;
+    background-color: var(--card);
+    z-index: 20;
+    align-self: center;
+    margin: 2em;
+    border-radius: 2em;
+    max-height: 60vh;
+    overflow-y: scroll;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container svg {
+  cursor: pointer;
+}
+
+.roomTimetable {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+p span {
+  font-weight: bold;
+}
+
+.timetable-container {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+.timetable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.timetable th, 
+.timetable td {
+  border: 1px solid var(--border-color, #e2e8f0);
+  padding: 0.5rem;
+}
+
+.timetable th {
+  background-color: var(--bg-color, #f8fafc);
+  font-weight: 600;
+}
+
+.time-col {
+  font-weight: 600;
+  color: var(--text-muted, #64748b);
+  background-color: var(--bg-color, #f8fafc);
+}
+
+.slot.booked {
+  background-color: #fecdd3; /* Light red */
+  color: #9f1239;
+  font-weight: 500;
+}
+
+.slot.free {
+  background-color: #dcfce7; /* Light green */
+  color: #166534;
+  font-weight: 500;
 }

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import RoomsInfo from './data/rooms.json';
+import RoomModal from './components/RoomModal';
 
 const DAYS_OF_WEEK = [
   "Monday",
@@ -34,6 +35,8 @@ function App() {
     time: "09:00"
   })
 
+  const [selectedRoom, setSelectedRoom] = useState("");
+
   const alterSelectedDetails = (e) => {
     setSelectedDetails((prevDetails) => ({
       ...prevDetails,
@@ -62,7 +65,7 @@ function App() {
     <>
       <header>
         <h1>Find a free room</h1>
-        <p>Pick a day and time to see which computer labs are open.</p>
+        <p>Pick a day and time to see which computer labs are free.</p>
       </header>
 
       <main>
@@ -82,24 +85,25 @@ function App() {
 
             <select name="time" id="time" value={selectedDetails.time} onChange={alterSelectedDetails}>
               {TIMES_OF_DAY.map((time) => (
-                <option key={time} value={time}>{time}</option>
+                <option key={time} value={time}>{time} {time >= '12:00' ? "PM" :"AM"}</option>
               ))}
             </select>
 
-            <p>Current Day: {selectedDetails.day}, Time: {selectedDetails.time}</p>
+            <p>Current Selection: {selectedDetails.day}, Time: {selectedDetails.time} {selectedDetails.time >= '12:00' ? "PM" :"AM"}</p>
           </div>
         </div>
 
         <div>
           <h2>
-            {filteredRooms.length} of {roomsList.length} free on {selectedDetails.day}, {selectedDetails.time}
+            {filteredRooms.length} of {roomsList.length} free on {selectedDetails.day}, {selectedDetails.time} {selectedDetails.time >= '12:00' ? "PM" :"AM"}
           </h2>
+          <p>Click a room to view the full timetable</p>
 
           {filteredRooms.length > 0 ? (
             <ul>
               {filteredRooms.map((room) => (
-                <li key={room.id}>
-                  <strong>{room.id}</strong> - {room.name}
+                <li key={room.id} onClick={() => setSelectedRoom(room)}>
+                  <strong>{room.id}</strong> {room.name}
                 </li>
               ))}
             </ul>
@@ -107,7 +111,18 @@ function App() {
             <p>No rooms available at this time.</p>
           )}
         </div>
+
+        {selectedRoom &&
+          <RoomModal 
+            room={selectedRoom}
+            closeModal={() => setSelectedRoom("")}
+          />
+        }
       </main>
+
+      <footer>
+        <p><span>DISCLAIMER:</span>The timetables were logged <span>30/09/2026</span> and are subject to change. Please use this app with that in mind.</p>
+      </footer>
     </>
   )
 }
