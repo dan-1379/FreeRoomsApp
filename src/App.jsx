@@ -26,12 +26,16 @@ const TIMES_OF_DAY = [
   "13:00",
   "14:00",
   "15:00",
-  "16:00"
+  "16:00",
+  "17:00"
 ]
+
+const date = new Date();
+const day = DAYS_OF_WEEK[date.getDay() - 1];
 
 function App() {
   const [selectedDetails, setSelectedDetails] = useState({
-    day: "Monday",
+    day: day,
     time: "09:00"
   })
 
@@ -121,7 +125,10 @@ function App() {
       </main>
 
       <footer>
-        <p><span>DISCLAIMER:</span>The timetables were logged <span>30/09/2026</span> and are subject to change. Please use this app with that in mind.</p>
+        <p className='disclaimer'>
+          <span className='badge'>DISCLAIMER:</span>
+            The timetables were logged September 30th 2026 and are subject to change. Please use this app with that in mind.
+        </p>
       </footer>
     </>
   )

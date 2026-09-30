@@ -19,7 +19,6 @@ const RoomModal = ({ room, closeModal }) => {
                 
                 <div className='roomTimetable'>
                     <div key={room.id} className="room-card">
-                        <h3>{room.id} - {room.name}</h3>
                         <Timetable bookings={room.bookings} />
                     </div>
                 </div>
